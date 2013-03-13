@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+
+
+
+	{% if task %}
+	<div class = "body-container">
+	{% block taskid %}Task #{{task.id}}{% endblock taskid %}
+	{% block title %}Task #{{task.id}}{% endblock title %}
+
+
+
+	{% block content %}
+
+
+
+
+<!--     <a href="http://citsci.s3.amazonaws.com/bats/{{task.attribute.example}}" rel="shadowbox">Bat Anatomy CheatSheet</a> -->
+
+	<div class = "row panel radius centered">
+
+		<h6>{{task.attribute.content}}</h6>	<br/>
+
+<form action="{% url 'tasks:vote' task.id %}" id="questions" method="post">
+{% csrf_token %}
+
+   	<input type="hidden" id="sketchpad-data" name="sketchpad-data" />
+
+        {% for choice in task.attribute.attribute_state_set.all %}
+
+        			{% if forloop.counter == 2 %}
+        			<div class = "large-4 columns">
+
+						<a href='http://citsci.s3.amazonaws.com/bats/large_images/{{task.input_object.content}}' class = 'cloud-zoom' rel="position: 'inside' , showTitle: false">
+	       				<img src="http://citsci.s3.amazonaws.com/bats/small_images/{{task.input_object.content}}" width="307" title="Your caption here" alt=''/></a>
+	       				<h4 class ="centered">?</h4>
+					</div>
+        			{% endif %}
+
+					<div class = "large-4 columns">
+					<a href='http://citsci.s3.amazonaws.com/bats/large_images/{{choice.example}}' class = 'cloud-zoom' rel="position: 'inside' , showTitle: false">
+       				<img src="http://citsci.s3.amazonaws.com/bats/small_images/{{choice.example}}" title="Your caption here" alt=''/></a>
+					<h4 class ="centered"><label for="choice{{ forloop.counter }}"><input type="radio" name="choice" id="choice{{ forloop.counter}}" value="{{choice.id}}" data-reveal-id="explain-modal"/>
+
+					<!--<h4 class ="centered"><label for="choice{{ forloop.counter }}"><input type="radio" name="choice" id="choice{{ forloop.counter}}" value="{{choice.id}}" onclick="openMessage('http://citsci.s3.amazonaws.com/bats/large_images/{{task.input_object.content}}', 'http://citsci.s3.amazonaws.com/bats/large_images/{{choice.example}}');"/>-->
+				{{ choice.content }}</label></h4>
+					</div>
+		{% endfor %}
+
+	</div> <!-- END INPUT IMAGE ROW -->
+
+		<script type="text/javascript">
+			{% for choice in task.attribute.attribute_state_set.all %}
+			$('#zoom_0{{ forloop.counter }}').elevateZoom({
+			  	zoomType: "inner",
+			  	cursor: "crosshair",
+			  	easing : true,
+			  	zoomWindowOffetx: 10
+			});
+			{% endfor %}
+  		</script>
+				
+				<!-- DUMMY CONTENT: NOT AT ALL DYNAMIC -->
+
+		<div class ="row centered">
+
+				<div class = "supplemental">
+				<h6>How difficult did you find this question to answer?</h6>
+
+				<ul class = "radio-list">
+				<li><label for="d1"><input type="radio" name="difficulty" id="d1" value="very-difficult" class="required">Very difficult</label></li>
+				<li><label for="d2"><input type="radio" name="difficulty" id="d2" value="difficult">Moderately difficult</label></li>
+				<li><label for="d3"><input type="radio" name="difficulty" id="d3" value="easy">Moderately easy</label></li>
+				<li><label for="d4"><input type="radio" name="difficulty" id="d4" value="very-easy">Very easy</label></li>
+
+				</ul>
+				</div>
+		
+				<div class = "supplemental">
+				<h6>How certain are you in your response?</h6>
+
+				<ul class = "radio-list">
+
+				<li><label for="c1"><input type="radio" name="certainty" id="c1" value="very-uncertain" class="required">Very uncertain</label></li>
+
+				<li><label for="c2"><input type="radio" name="certainty" id="c2" value="uncertain">Moderately uncertain</label></li>
+
+				<li><label for="c3"><input type="radio" name="certainty" id="c3" value="certain">Moderately certain</label></li>
+
+				<li><label for="c4"><input type="radio" name="certainty" id="c4" value="very-uncertain">Very certain</label></li>
+
+				</ul>
+				</div>
+
+				<input type="hidden" name="data" />
+
+			<input type="submit" value="Vote" class = "large button expand"/>
+
+			</div> <!-- END SUPPLEMENTAL QUESTION ROW -->
+
+			<!-- END DUMMY CONTENT -->
+			
+			</form>
+
+	</div>
+<div id="certainty-modal" class="reveal-modal">
+  <h2>Some questions about certainty here!</h2>
+  <p class="lead">Your couch.  It is mine.</p>
+  <p>Im a cool paragraph that lives inside of an even cooler modal. Wins</p>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div id="difficulty-modal" class="reveal-modal">
+  <h2>Some questions about difficulty here!</h2>
+  <p class="lead">Your couch.  It is mine.</p>
+  <p>Im a cool paragraph that lives inside of an even cooler modal. Wins</p>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div id="explain-modal" class="reveal-modal">
+  <h4>Explain your answer by drawing an outline around the part of the image you think contains the character.</h4>
+  <div class="modal-sketchpad-pics" style="background-image: url('http://www.digitaltrends.com/wp-content/uploads/2013/03/url12.jpg');"/><div id="editor"></div></div>
+  <div class="modal-sketchpad-pics" style="background-image: url('http://www.digitaltrends.com/wp-content/uploads/2013/03/url12.jpg');"/></div>
+  <!--<img src="http://citsci.s3.amazonaws.com/bats/large_images/{{task.input_object.content}}" />
+  <img src="http://citsci.s3.amazonaws.com/bats/large_images/{{choice.example}}" />-->
+  <a href="#" class="small button success radius" id="done-canvas">Done</a>
+  <a href="#" class="small button alert radius" id="clear-canvas">Clear</a>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+
+	{% endblock content %}
+
+	{% else %}
+
+		<p>no task left in the database</p>
+
+	{% endif %}

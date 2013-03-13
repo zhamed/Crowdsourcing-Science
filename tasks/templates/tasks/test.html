@@ -1,0 +1,16 @@
+{% load url from future %}
+{% if task %}
+	<img src={{task.input_object.content}} width="100">
+	<h5> {{task.attribute.content}} </h5>
+	<form action="{% url 'tasks:vote' task.id %}" method="post">
+	{% csrf_token %}
+	{% for choice in task.attribute.attribute_state_set.all %}
+		<input type="radio" name="choice" id="choice{{ forloop.counter}}" value="{{choice.id}}" />
+		<label for="choice{{ forloop.counter }}">{{ choice.content }}
+		</label><br>
+	{% endfor %}
+	<input type="submit" value="Vote" />
+	</form>
+{% else %}
+	<p>no task left in the database</p>
+{% endif %}

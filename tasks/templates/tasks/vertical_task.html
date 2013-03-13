@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+
+
+
+	{% if task %}
+
+	{% block taskid %}Task #{{task.id}}{% endblock taskid %}
+	{% block title %}Task #{{task.id}}{% endblock title %}
+
+	{% block content %}
+
+
+
+<!--     <a href="http://citsci.s3.amazonaws.com/bats/{{task.attribute.example}}" rel="shadowbox">Bat Anatomy CheatSheet</a> -->
+
+<div class = "row panel main-content">
+
+		<h6 class = "centered">{{task.attribute.content}}</h6>
+
+	<div class = "row">
+
+		<div class = "large-6 columns">
+
+	   	<input type="hidden" id="sketchpad-data" name="sketchpad-data" />
+
+			<table>
+	       {% for choice in task.attribute.attribute_state_set.all %}
+	        	{% if forloop.counter == 2 %}
+					<div class = "row inline"><tr>
+
+        					<div class = "large-6 columns">
+        					<td>
+							<a href='http://citsci.s3.amazonaws.com/bats/large_images/{{task.input_object.content}}' class = 'cloud-zoom' rel="position: 'right' , showTitle: false">
+		       				<img src="http://citsci.s3.amazonaws.com/bats/small_images/{{task.input_object.content}}" width="307" title="Your caption here" alt=''/></a>
+		      			    </td>
+			       			</div>
+			       			<td>
+			       			<div class = "large-6 columns">	<h4>?</h4>
+			       			</td>
+			       			</div>
+			       			
+
+		       			</tr>
+		       		</div>
+
+	        	{% endif %}
+
+				<div class ="row inline"><tr>
+
+					<div class = "large-6 columns">
+					<td>
+						<a href='http://citsci.s3.amazonaws.com/bats/large_images/{{choice.example}}' class = 'cloud-zoom' rel="position: 'right' , showTitle: false">
+	       				<img src="http://citsci.s3.amazonaws.com/bats/small_images/{{choice.example}}" title="Your caption here" alt=''/></a>
+	       			</td> 
+	       			</div>
+
+
+					<div class = "large-6 columns">
+				   	<td>
+				   		<h4><label for="choice{{ forloop.counter }}"><input type="radio" name="choice" id="choice{{ forloop.counter}}" value="{{choice.id}}" onclick="openMessage('http://citsci.s3.amazonaws.com/bats/large_images/{{task.input_object.content}}', 'http://citsci.s3.amazonaws.com/bats/large_images/{{choice.example}}');"/>{{ choice.content }}</label></h4>
+
+					</td>
+				   	</div>
+
+				</tr></div>
+
+		{% endfor %}
+		</table>
+
+
+
+	</div> <!-- END INPUT IMAGE ROW -->
+
+	<script type="text/javascript">
+			{% for choice in task.attribute.attribute_state_set.all %}
+			$('#zoom_0{{ forloop.counter }}').elevateZoom({
+			  	zoomType: "inner",
+			  	cursor: "crosshair",
+			  	easing : true,
+			  	zoomWindowOffetx: 10
+			});
+			{% endfor %}
+  		</script>
+
+	<div class = "large-6 columns">
+
+	<table class = "right-col">
+		<tr>
+				<td>
+
+				<!-- DUMMY CONTENT: NOT AT ALL DYNAMIC -->
+
+				<div class = "supplemental">
+				<h6>How difficult did you find this question to answer?</h6>
+
+				<ul class = "radio-list">
+				<li><label for="d1"><input type="radio" name="difficulty" id="d1" value="very-difficult">Very difficult</label></li>
+				<li><label for="d2"><input type="radio" name="difficulty" id="d2" value="difficult">Moderately difficult</label></li>
+				<li><label for="d3"><input type="radio" name="difficulty" id="d3" value="easy">Moderately easy</label></li>
+				<li><label for="d4"><input type="radio" name="difficulty" id="d4" value="very-easy">Very easy</label></li>
+
+				</ul>
+				</div>
+				
+				</td>
+
+		<tr>
+			<td>
+				<div class = "supplemental">
+				<h6>How certain are you in your response?</h6>
+
+				<ul class = "radio-list">
+
+				<li><label for="c1"><input type="radio" name="certainty" id="c1" value="very-uncertain">Very uncertain</label></li>
+
+
+				<li><label for="c2"><input type="radio" name="certainty" id="c2" value="uncertain">Moderately uncertain</label></li>
+
+				<li><label for="c3"><input type="radio" name="certainty" id="c3" value="certain">Moderately certain</label></li>
+
+				<li><label for="c4"><input type="radio" name="certainty" id="c4" value="very-uncertain">Very certain</label></li>
+
+				</ul>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+						<input type="submit" value="Vote" class = "large button expand"/>
+			</td>
+		</tr>
+	</table>
+
+	</div>
+
+
+
+			<!-- END DUMMY CONTENT -->
+			
+			</form>
+
+	</div>
+	</div>
+	{% endblock content %}
+
+	{% else %}
+
+		<p>no task left in the database</p>
+
+	{% endif %}
+

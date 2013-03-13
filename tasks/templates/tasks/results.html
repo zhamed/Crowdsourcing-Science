@@ -1,0 +1,11 @@
+{% load url from future %}
+
+<h1>{{ task.question.content }}</h1>
+
+<ul>
+{% for choice in task.question.choice_set.all %}
+    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'tasks:index' %}">Vote again?</a>

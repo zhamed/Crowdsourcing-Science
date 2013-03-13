@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href='http://fonts.googleapis.com/css?family=Poiret+One|Oxygen|Monda|Arimo|Tenor+Sans|Raleway' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="/static/stylesheets/stylesheets/jquery.jqzoom.css">  
+    
+
+    <link href="{{ STATIC_URL }}stylesheets/stylesheets/foundation.min.css" rel="stylesheet">    
+    <link href="{{ STATIC_URL }}stylesheets/stylesheets/custom.css" rel="stylesheet">  
+
+    <link href="{{ STATIC_URL }}stylesheets/stylesheets/cloud-zoom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}stylesheets/stylesheets/shadowbox.css">
+
+    <style>
+    .sketchpad-background {
+        background-image: url('http://cdn.grumpycats.com/wp-content/uploads/2012/09/GC-Gravatar-copy.png');
+        background-repeat: no-repeat;   
+    }
+
+    .open {
+        z-index: 1000000;
+    }
+
+    .modal-sketchpad-pics {
+        width: 300px;
+        height:300px;
+        display: inline-block;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    </style>
+
+    <script type="text/javascript" src="{{ STATIC_URL }}javascripts/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}javascripts/jquery.validate.js"></script>
+
+    <!--<script type="text/javascript" src="/static/javascripts/jquery.form.js"></script>
+    <script type="text/javascript" src="/static/javascripts/jquery-ui-1.8.5.custom.min.js"></script>
+    <script type="text/javascript" src="/static/javascripts/jquery.form.wizard.js"></script>-->
+
+    <script type="text/javascript" src="/static/javascripts/cloud-zoom.1.0.2.js"></script>
+    <!--<script type="text/javascript" src="/static/javascripts/jquery.elevateZoom-2.5.5.min.js"></script>-->
+
+    <script type="text/javascript" src="{{ STATIC_URL }}javascripts/shadowbox.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}javascripts/vendor/custom.modernizr.js"></script>
+
+    <!--<script type='text/javascript' src='/static/javascripts/jquery.jqzoom-core.js'></script>-->
+    <script type="text/javascript" src="{{ STATIC_URL }}javascripts/raphael.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}javascripts/json2.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}javascripts/sketchpad.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}javascripts/foundation.min.js"></script>  
+    <script type="text/javascript" src="{{ STATIC_URL }}javascripts/base.js"></script>  
+    
+    
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<nav class = "top-bar fixed">
+
+    <ul class = "title-area">
+    <li class = "name">
+        <h1><a href="#">Crowdsourcing Science</a></h1>
+    </li>
+    </ul>
+
+    <section class="top-bar-section">
+
+    <ul class = "left">
+    <li class="divider"></li>
+    <li class="active"><a href="#">Home</a></li>
+    <li><a href="#">Tasks</a></li>
+    <li><a href="#">History</a></li>
+    </ul>
+
+    </section>
+
+</nav>
+
+<ul class="breadcrumbs">
+  <li><a href="#">All Tasks</a></li>
+  <li><a href="#">Bat Skulls</a></li>
+  <li class="unavailable"><a href="#">Character Detection</a></li>
+  <li class="unavailable"><a href="#">Solo</a></li>
+  <li class="current"><a href="#">{% block taskid %}
+{% endblock taskid %}</a></li>
+</ul>
+
+<div>
+{% block content %}
+{% endblock content %}
+</div>
+
+<br/>
+
+<footer class = "centered">
+<h6> © 2012 Crowdsourcing Science.</h6>
+</footer>
+
+<script>
+  document.write('<script src=/js/vendor/'
+    + ('__proto__' in {} ? 'zepto' : 'jquery')
+    + '.js><\/script>');
+</script>
+
+<script>
+  $(document).foundation();
+</script>
+
+<script>
+$("input[name='certainty']").click(function() {  
+      $('#certainty-modal').foundation('reveal', 'open'); 
+});
+
+$("input[name='difficulty']").click(function() {  
+      $('#difficulty-modal').foundation('reveal', 'open'); 
+});
+
+</script>
+
+<script type="text/javascript">
+    var sketchpad = Raphael.sketchpad("editor", {
+        width: 300,
+        height: 300,
+        editing: true
+    });
+
+    // When the sketchpad changes, update the input field.
+    sketchpad.change(function() {
+        $("#data").val(sketchpad.json());
+    });
+</script>
+<script>
+    $('#clear-canvas').click(function() {
+        sketchpad.clear();
+    });
+
+    $('#done-canvas').click(function() {
+      $('#explain-modal').foundation('reveal', 'close'); 
+    });
+
+</script>
+
+  <script>
+  $(document).ready(function(){
+    $("#questions").validate();
+  });
+  </script>
+
+</body>
+</html>

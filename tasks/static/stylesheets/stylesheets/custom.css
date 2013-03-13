@@ -1,0 +1,92 @@
+/* GLOBALS */
+/* line 10, ../sass/custom.scss */
+body {
+  background: url(../../images/bg/grey.png);
+}
+
+/* line 14, ../sass/custom.scss */
+.HL {
+  background-color: blue;
+  border: 1px solid black;
+}
+
+/* line 19, ../sass/custom.scss */
+table {
+  background: inherit;
+  border: 0px;
+}
+
+/* line 24, ../sass/custom.scss */
+.right-col {
+  height: 30em;
+}
+
+/* line 28, ../sass/custom.scss */
+.centered {
+  margin: 0px auto;
+  text-align: center;
+}
+
+/* line 33, ../sass/custom.scss */
+.radio-list li {
+  display: inline-block;
+  list-style-type: none;
+}
+/* line 37, ../sass/custom.scss */
+.radio-list li label {
+  padding: 0 50px 0 0;
+}
+
+/* line 42, ../sass/custom.scss */
+.top-bar {
+  border-bottom: 2px solid #2A6B4C;
+}
+
+/* line 46, ../sass/custom.scss */
+footer {
+  position: fixed;
+  bottom: 0;
+  background-color: #111;
+  width: 100%;
+  border-top: 1px solid #2A6B4C;
+  padding-top: 4px;
+}
+
+/* line 55, ../sass/custom.scss */
+.main-content {
+  max-height: 550px;
+}
+/* line 57, ../sass/custom.scss */
+.main-content img {
+  max-width: 200px;
+}
+
+/* line 62, ../sass/custom.scss */
+footer h6 {
+  color: #4c4b4b;
+}
+
+/* line 66, ../sass/custom.scss */
+.supplemental {
+  background-color: #f6f6f6;
+  border: 1px solid #dcdcdc;
+  text-align: left;
+  padding: 0 0 0 10px;
+  margin: 5px 0 5px 0;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  border-radius: 10px;
+}
+/* line 74, ../sass/custom.scss */
+.supplemental label {
+  font-size: 8pt;
+}
+/* line 78, ../sass/custom.scss */
+.supplemental h6 {
+  margin: 2px 0 2px 0;
+}
+/* line 82, ../sass/custom.scss */
+.supplemental ul {
+  margin-bottom: 0px;
+}

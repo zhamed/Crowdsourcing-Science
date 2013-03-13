@@ -1,0 +1,85 @@
+/* GLOBALS */
+
+@mixin corner($size) {
+  -moz-border-radius: $size;
+  -webkit-border-radius: $size;
+  -khtml-border-radius: $size;
+   border-radius: $size;
+}
+
+body {
+	background: url(../../images/bg/grey.png);
+}
+
+.HL {
+	background-color: blue;
+	border: 1px solid black;
+}
+
+table {
+	background: inherit;
+	border: 0px;
+}
+
+ .right-col {
+	height: 30em;
+}
+
+.centered {
+	margin: 0px auto;
+	text-align: center;
+}
+
+.radio-list li {
+	display: inline-block;
+	list-style-type: none;
+
+	label {
+		padding: 0 50px 0 0;
+	}
+}
+
+.top-bar {
+	border-bottom: 2px solid #2A6B4C;
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	background-color: #111;
+	width: 100%;
+	border-top: 1px solid #2A6B4C;
+	padding-top: 4px;
+}
+
+.main-content {
+	max-height: 550px;
+	img {
+		max-width: 200px;
+	}
+}
+
+footer h6 {
+	color: #4c4b4b;
+}
+
+.supplemental {
+	background-color: #f6f6f6;
+	border: 1px solid #dcdcdc;
+	text-align: left;
+	padding: 0 0 0 10px;
+	margin: 5px 0 5px 0;
+	@include corner(10px);
+
+	label {
+	font-size: 8pt;
+	}
+
+	h6 {
+	margin: 2px 0 2px 0;
+	}
+
+	ul {
+	margin-bottom: 0px;
+	}
+}
